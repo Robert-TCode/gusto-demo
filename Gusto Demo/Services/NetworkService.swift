@@ -63,6 +63,7 @@ class NetworkService {
                     let decoder = JSONDecoder()
                     decoder.userInfo[CodingUserInfoKey.managedObjectContext!] = container.viewContext
                     
+                    //TODO Investigate CoreData crash -? Might be because of passing container (context)
                     let products = try decoder.decode([Product].self, from: productsData)
                     completion(.success(products))
                     

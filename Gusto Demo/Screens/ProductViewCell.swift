@@ -29,6 +29,6 @@ class ProductViewCell: UITableViewCell {
         }
         
         presentationImageView.contentMode = .scaleAspectFill
-        presentationImageView.layer.cornerRadius = 6
+        presentationImageView.layer.cornerRadius = 16
     }
 }
