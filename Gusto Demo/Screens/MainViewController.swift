@@ -11,20 +11,45 @@ import CoreData
 
 class MainViewController: UIViewController {
     
+    @IBOutlet weak var productSearchBar: UISearchBar!
     @IBOutlet weak var productsTableView: UITableView!
     
     var persistentContainer: NSPersistentContainer!
     var productsData = [NSManagedObject]()
+    var filteredProductsData = [NSManagedObject]()
+    
+    var filterTitleString: String? = nil {
+        didSet {
+            filterProducts()
+        }
+    }
+    
+    var isFilterActive: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupSearchBar()
         setupContainer()
+        setupTableView()
+       
+        fetchData()
+    }
+    
+    private func setupSearchBar() {
+        UILabel.appearance(whenContainedInInstancesOf: [UISearchBar.self]).font = UIFont(name: "HelveticaNueue", size: 14)
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).font = UIFont(name: "HelveticaNueue", size: 14)
+               
+        productSearchBar.delegate = self
         
+        productSearchBar.searchTextField.accessibilityIdentifier = "searchBarProductsId"
+    }
+    
+    private func setupTableView() {
         productsTableView.delegate = self
         productsTableView.dataSource = self
         
-        fetchData()
+        productsTableView.accessibilityIdentifier = "productsTableViewId"
     }
     
     private func setupContainer() {
@@ -42,7 +67,10 @@ class MainViewController: UIViewController {
     }
     
     private func fetchData() {
-        NetworkService.fetchProducts(inContainer: persistentContainer) { (result) in
+        // Double the screen width for a better quality like using assets (2x for most of the iPhones)
+        let imagesWidth: CGFloat = 2 * UIScreen.main.bounds.width
+        
+        NetworkService.fetchProducts(inContainer: persistentContainer, imagesWidth: imagesWidth) { (result) in
             switch result {
             case .success(_):
                 DispatchQueue.main.async { [weak self] in
@@ -51,8 +79,9 @@ class MainViewController: UIViewController {
                     self.loadSavedData()
                 }
             case .failure(let error):
-                print("Failed to fetch products with error ", error)
+                print("Error while fetching products from server ", error)
                 
+                // Failed to fetch data, load saved products
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.loadSavedData()
@@ -63,14 +92,11 @@ class MainViewController: UIViewController {
     
     func loadSavedData() {
         let request: NSFetchRequest<Product> = Product.fetchRequest()
-        
         do {
             productsData = try persistentContainer.viewContext.fetch(request)
-            print("Got \(productsData.count) products")
-            
             self.productsTableView.reloadData()
         } catch {
-            print("Fetch failed")
+            print("Fetch saved products failed")
         }
     }
     
@@ -79,10 +105,9 @@ class MainViewController: UIViewController {
             persistentContainer.performBackgroundTask { (context) in
                 do {
                     self.clearStorage()
-                    print ("Saved")
                     try context.save()
                 } catch {
-                    print("An error occurred while saving: \(error)")
+                    print("An error occurred while saving")
                 }
             }
         }
@@ -95,6 +120,7 @@ class MainViewController: UIViewController {
 
         let managedObjectContext = persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Product")
+        
         // NSBatchDeleteRequest is not supported for in-memory stores
         if isInMemoryStore {
             do {
@@ -118,7 +144,7 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return productsData.count
+        return isFilterActive ? filteredProductsData.count : productsData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -127,7 +153,15 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
         }
         
-        productCell.configure(withProduct: productsData[indexPath.row] as! Product)
+        let product = isFilterActive ? filteredProductsData[indexPath.row] as! Product : productsData[indexPath.row] as! Product
+        productCell.configure(withProduct: product)
+        
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor.clear
+        productCell.selectedBackgroundView = bgColorView
+        
+        productCell.accessibilityIdentifier = "productCell\(indexPath.row)"
+        
         return productCell
     }
     
@@ -137,7 +171,50 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        productDetailsViewController.configure(withProduct: productsData[indexPath.row] as! Product)
+        let product = isFilterActive ? filteredProductsData[indexPath.row] as! Product : productsData[indexPath.row] as! Product
+        
+        productDetailsViewController.configure(withProduct: product)
         self.navigationController?.pushViewController(productDetailsViewController, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 160
+    }
+}
+
+extension MainViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterTitleString = searchText
+        
+        if searchText.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
+    
+    func filterProducts() {
+        guard let validTitleString = filterTitleString,
+            validTitleString.isEmpty == false else {
+                isFilterActive = false
+                filteredProductsData.removeAll()
+                productsTableView.reloadData()
+            return
+        }
+        
+        let trimmedFilterString = String(validTitleString.lowercased().trimmingCharacters(in: .whitespaces))
+        filteredProductsData.removeAll()
+        
+        for productData in productsData {
+            let product = productData as! Product
+            if let trimmedTitle = product.title?.lowercased().trimmingCharacters(in: .whitespaces) {
+                if trimmedTitle.contains(trimmedFilterString) {
+                    filteredProductsData.append(productData)
+                }
+            }
+        }
+        
+        isFilterActive = true
+        productsTableView.reloadData()
     }
 }

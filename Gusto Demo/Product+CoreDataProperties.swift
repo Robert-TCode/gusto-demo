@@ -28,7 +28,7 @@ extension Product {
     @NSManaged public var listPrice: String?
     @NSManaged public var productDescription: String?
     @NSManaged public var productZone: String?
-    @NSManaged public var tags: NSObject?
+    @NSManaged public var tags: [String]?
     @NSManaged public var title: String?
     @NSManaged public var volume: Int32
 

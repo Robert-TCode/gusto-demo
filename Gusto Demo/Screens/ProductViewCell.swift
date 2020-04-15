@@ -8,24 +8,27 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class ProductViewCell: UITableViewCell {
     
-    @IBOutlet weak var mainLabel: UILabel!
+    @IBOutlet weak var presentationImageView: UIImageView!
     
-    var product: Product? {
-        didSet {
-//            mainLabel.text = product?.title
-        }
-    }
-    
-    override func layoutSubviews() {
-        mainLabel.text = product?.title
-    }
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
     
     public func configure(withProduct product: Product) {
-        //TODO update the view
         
-        self.product = product
+        titleLabel.text = product.title
+        
+        let price = product.listPrice == nil ? "" : "£\(product.listPrice!)"
+        priceLabel.text = price
+        
+        if let url = URL(string: product.image ?? "") {
+            presentationImageView.kf.setImage(with: url)
+        }
+        
+        presentationImageView.contentMode = .scaleAspectFill
+        presentationImageView.layer.cornerRadius = 6
     }
 }

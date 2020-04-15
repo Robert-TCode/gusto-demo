@@ -3,19 +3,30 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99BD91D518D9EE062CFA32AB /* Pods_Gusto_Demo_Gusto_DemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 504B5A847C2AE0921806E1EE /* Pods_Gusto_Demo_Gusto_DemoUITests.framework */; };
+		AA18A03E2447731800E25904 /* GustoDemoTestingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA18A03D2447731800E25904 /* GustoDemoTestingHelper.swift */; };
+		AA18A04024478B9400E25904 /* products.json in Resources */ = {isa = PBXBuildFile; fileRef = AA18A03F24478B9400E25904 /* products.json */; };
 		AAC8C7EA244619C80099DFEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C7E9244619C80099DFEE /* AppDelegate.swift */; };
 		AAC8C7EC244619C80099DFEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C7EB244619C80099DFEE /* SceneDelegate.swift */; };
-		AAC8C7EE244619C80099DFEE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C7ED244619C80099DFEE /* ViewController.swift */; };
+		AAC8C7EE244619C80099DFEE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C7ED244619C80099DFEE /* MainViewController.swift */; };
 		AAC8C7F1244619C80099DFEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAC8C7EF244619C80099DFEE /* Main.storyboard */; };
 		AAC8C7F4244619C80099DFEE /* Gusto_Demo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C7F2244619C80099DFEE /* Gusto_Demo.xcdatamodeld */; };
 		AAC8C7F6244619CB0099DFEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAC8C7F5244619CB0099DFEE /* Assets.xcassets */; };
 		AAC8C7F9244619CB0099DFEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAC8C7F7244619CB0099DFEE /* LaunchScreen.storyboard */; };
 		AAC8C804244619CC0099DFEE /* Gusto_DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C803244619CC0099DFEE /* Gusto_DemoTests.swift */; };
 		AAC8C80F244619CC0099DFEE /* Gusto_DemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C80E244619CC0099DFEE /* Gusto_DemoUITests.swift */; };
+		AAC8C81F24461D150099DFEE /* CodingProductInfoKey+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C81E24461D150099DFEE /* CodingProductInfoKey+Util.swift */; };
+		AAC8C821244632720099DFEE /* ProductViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C820244632720099DFEE /* ProductViewCell.swift */; };
+		AAC8C824244655930099DFEE /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C822244655930099DFEE /* Product+CoreDataClass.swift */; };
+		AAC8C825244655930099DFEE /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C823244655930099DFEE /* Product+CoreDataProperties.swift */; };
+		AAC8C82724466B500099DFEE /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C82624466B500099DFEE /* NetworkService.swift */; };
+		AAC8C8292446F49B0099DFEE /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC8C8282446F49B0099DFEE /* ProductDetailsViewController.swift */; };
+		DABD01602E665D11EF367A03 /* Pods_Gusto_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81D1D81EB4FEB861A2E59CD3 /* Pods_Gusto_Demo.framework */; };
+		E7834A256BA21260B5ACF9BB /* Pods_Gusto_DemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC47CDFE97292490E0F3F9F /* Pods_Gusto_DemoTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +47,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37BB48541BDB392D87BCCAF5 /* Pods-Gusto Demo-Gusto DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gusto Demo-Gusto DemoUITests.release.xcconfig"; path = "Target Support Files/Pods-Gusto Demo-Gusto DemoUITests/Pods-Gusto Demo-Gusto DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		46BEAF67B534757AEE73DF26 /* Pods-Gusto Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gusto Demo.release.xcconfig"; path = "Target Support Files/Pods-Gusto Demo/Pods-Gusto Demo.release.xcconfig"; sourceTree = "<group>"; };
+		4EF48E9E619C565F348F9B00 /* Pods-Gusto DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gusto DemoTests.release.xcconfig"; path = "Target Support Files/Pods-Gusto DemoTests/Pods-Gusto DemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		504B5A847C2AE0921806E1EE /* Pods_Gusto_Demo_Gusto_DemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gusto_Demo_Gusto_DemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7BC792461313805983597259 /* Pods-Gusto DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gusto DemoTests.debug.xcconfig"; path = "Target Support Files/Pods-Gusto DemoTests/Pods-Gusto DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		81D1D81EB4FEB861A2E59CD3 /* Pods_Gusto_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gusto_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA18A03D2447731800E25904 /* GustoDemoTestingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GustoDemoTestingHelper.swift; sourceTree = "<group>"; };
+		AA18A03F24478B9400E25904 /* products.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = products.json; sourceTree = "<group>"; };
 		AAC8C7E6244619C80099DFEE /* Gusto Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gusto Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAC8C7E9244619C80099DFEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAC8C7EB244619C80099DFEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		AAC8C7ED244619C80099DFEE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AAC8C7ED244619C80099DFEE /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AAC8C7F0244619C80099DFEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AAC8C7F3244619C80099DFEE /* Gusto_Demo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gusto_Demo.xcdatamodel; sourceTree = "<group>"; };
 		AAC8C7F5244619CB0099DFEE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +70,15 @@
 		AAC8C80A244619CC0099DFEE /* Gusto DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gusto DemoUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAC8C80E244619CC0099DFEE /* Gusto_DemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gusto_DemoUITests.swift; sourceTree = "<group>"; };
 		AAC8C810244619CC0099DFEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AAC8C81E24461D150099DFEE /* CodingProductInfoKey+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CodingProductInfoKey+Util.swift"; sourceTree = "<group>"; };
+		AAC8C820244632720099DFEE /* ProductViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewCell.swift; sourceTree = "<group>"; };
+		AAC8C822244655930099DFEE /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
+		AAC8C823244655930099DFEE /* Product+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		AAC8C82624466B500099DFEE /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		AAC8C8282446F49B0099DFEE /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
+		B3DE5C8E7E016748041779AF /* Pods-Gusto Demo-Gusto DemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gusto Demo-Gusto DemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-Gusto Demo-Gusto DemoUITests/Pods-Gusto Demo-Gusto DemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BDEED32E790B9D0A815CF692 /* Pods-Gusto Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gusto Demo.debug.xcconfig"; path = "Target Support Files/Pods-Gusto Demo/Pods-Gusto Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		EAC47CDFE97292490E0F3F9F /* Pods_Gusto_DemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gusto_DemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DABD01602E665D11EF367A03 /* Pods_Gusto_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7834A256BA21260B5ACF9BB /* Pods_Gusto_DemoTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +102,34 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99BD91D518D9EE062CFA32AB /* Pods_Gusto_Demo_Gusto_DemoUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B0F02EEBA8783F09762225A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BDEED32E790B9D0A815CF692 /* Pods-Gusto Demo.debug.xcconfig */,
+				46BEAF67B534757AEE73DF26 /* Pods-Gusto Demo.release.xcconfig */,
+				B3DE5C8E7E016748041779AF /* Pods-Gusto Demo-Gusto DemoUITests.debug.xcconfig */,
+				37BB48541BDB392D87BCCAF5 /* Pods-Gusto Demo-Gusto DemoUITests.release.xcconfig */,
+				7BC792461313805983597259 /* Pods-Gusto DemoTests.debug.xcconfig */,
+				4EF48E9E619C565F348F9B00 /* Pods-Gusto DemoTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		AA18A041244797F400E25904 /* SampleData */ = {
+			isa = PBXGroup;
+			children = (
+				AA18A03F24478B9400E25904 /* products.json */,
+			);
+			path = SampleData;
+			sourceTree = "<group>";
+		};
 		AAC8C7DD244619C80099DFEE = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +137,8 @@
 				AAC8C802244619CC0099DFEE /* Gusto DemoTests */,
 				AAC8C80D244619CC0099DFEE /* Gusto DemoUITests */,
 				AAC8C7E7244619C80099DFEE /* Products */,
+				9B0F02EEBA8783F09762225A /* Pods */,
+				B3DA9882B2BE9F2E73F3F18A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,14 +155,15 @@
 		AAC8C7E8244619C80099DFEE /* Gusto Demo */ = {
 			isa = PBXGroup;
 			children = (
-				AAC8C7E9244619C80099DFEE /* AppDelegate.swift */,
-				AAC8C7EB244619C80099DFEE /* SceneDelegate.swift */,
-				AAC8C7ED244619C80099DFEE /* ViewController.swift */,
-				AAC8C7EF244619C80099DFEE /* Main.storyboard */,
+				AAC8C822244655930099DFEE /* Product+CoreDataClass.swift */,
+				AAC8C823244655930099DFEE /* Product+CoreDataProperties.swift */,
+				AAC8C82E244701330099DFEE /* Core */,
+				AAC8C82F244701B30099DFEE /* Screens */,
 				AAC8C7F5244619CB0099DFEE /* Assets.xcassets */,
-				AAC8C7F7244619CB0099DFEE /* LaunchScreen.storyboard */,
 				AAC8C7FA244619CB0099DFEE /* Info.plist */,
 				AAC8C7F2244619C80099DFEE /* Gusto_Demo.xcdatamodeld */,
+				AAC8C82C2446FECD0099DFEE /* Extensions */,
+				AAC8C82D2446FED70099DFEE /* Services */,
 			);
 			path = "Gusto Demo";
 			sourceTree = "<group>";
@@ -116,6 +171,8 @@
 		AAC8C802244619CC0099DFEE /* Gusto DemoTests */ = {
 			isa = PBXGroup;
 			children = (
+				AA18A041244797F400E25904 /* SampleData */,
+				AA18A03D2447731800E25904 /* GustoDemoTestingHelper.swift */,
 				AAC8C803244619CC0099DFEE /* Gusto_DemoTests.swift */,
 				AAC8C805244619CC0099DFEE /* Info.plist */,
 			);
@@ -131,6 +188,53 @@
 			path = "Gusto DemoUITests";
 			sourceTree = "<group>";
 		};
+		AAC8C82C2446FECD0099DFEE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AAC8C81E24461D150099DFEE /* CodingProductInfoKey+Util.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AAC8C82D2446FED70099DFEE /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AAC8C82624466B500099DFEE /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AAC8C82E244701330099DFEE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AAC8C7E9244619C80099DFEE /* AppDelegate.swift */,
+				AAC8C7EB244619C80099DFEE /* SceneDelegate.swift */,
+				AAC8C7F7244619CB0099DFEE /* LaunchScreen.storyboard */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		AAC8C82F244701B30099DFEE /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				AAC8C7ED244619C80099DFEE /* MainViewController.swift */,
+				AAC8C820244632720099DFEE /* ProductViewCell.swift */,
+				AAC8C8282446F49B0099DFEE /* ProductDetailsViewController.swift */,
+				AAC8C7EF244619C80099DFEE /* Main.storyboard */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		B3DA9882B2BE9F2E73F3F18A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				81D1D81EB4FEB861A2E59CD3 /* Pods_Gusto_Demo.framework */,
+				504B5A847C2AE0921806E1EE /* Pods_Gusto_Demo_Gusto_DemoUITests.framework */,
+				EAC47CDFE97292490E0F3F9F /* Pods_Gusto_DemoTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,9 +242,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AAC8C813244619CC0099DFEE /* Build configuration list for PBXNativeTarget "Gusto Demo" */;
 			buildPhases = (
+				1C7AD066FBD32F6B20B04BBA /* [CP] Check Pods Manifest.lock */,
 				AAC8C7E2244619C80099DFEE /* Sources */,
 				AAC8C7E3244619C80099DFEE /* Frameworks */,
 				AAC8C7E4244619C80099DFEE /* Resources */,
+				5820188A7DD76AAE5593C890 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -155,9 +261,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AAC8C816244619CC0099DFEE /* Build configuration list for PBXNativeTarget "Gusto DemoTests" */;
 			buildPhases = (
+				76F1FAB6AA141A7CB8F6705F /* [CP] Check Pods Manifest.lock */,
 				AAC8C7FB244619CC0099DFEE /* Sources */,
 				AAC8C7FC244619CC0099DFEE /* Frameworks */,
 				AAC8C7FD244619CC0099DFEE /* Resources */,
+				8EBDF46C14927790F970A9D7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -173,9 +281,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AAC8C819244619CC0099DFEE /* Build configuration list for PBXNativeTarget "Gusto DemoUITests" */;
 			buildPhases = (
+				07940BF806059FF938BA39E7 /* [CP] Check Pods Manifest.lock */,
 				AAC8C806244619CC0099DFEE /* Sources */,
 				AAC8C807244619CC0099DFEE /* Frameworks */,
 				AAC8C808244619CC0099DFEE /* Resources */,
+				6147DEC951A5EB95D6481809 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,6 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA18A04024478B9400E25904 /* products.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,15 +368,141 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		07940BF806059FF938BA39E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Gusto Demo-Gusto DemoUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1C7AD066FBD32F6B20B04BBA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Gusto Demo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5820188A7DD76AAE5593C890 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gusto Demo/Pods-Gusto Demo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gusto Demo/Pods-Gusto Demo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Gusto Demo/Pods-Gusto Demo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6147DEC951A5EB95D6481809 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gusto Demo-Gusto DemoUITests/Pods-Gusto Demo-Gusto DemoUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gusto Demo-Gusto DemoUITests/Pods-Gusto Demo-Gusto DemoUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Gusto Demo-Gusto DemoUITests/Pods-Gusto Demo-Gusto DemoUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		76F1FAB6AA141A7CB8F6705F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Gusto DemoTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8EBDF46C14927790F970A9D7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gusto DemoTests/Pods-Gusto DemoTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Gusto DemoTests/Pods-Gusto DemoTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Gusto DemoTests/Pods-Gusto DemoTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AAC8C7E2244619C80099DFEE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAC8C7EE244619C80099DFEE /* ViewController.swift in Sources */,
+				AAC8C82724466B500099DFEE /* NetworkService.swift in Sources */,
+				AAC8C821244632720099DFEE /* ProductViewCell.swift in Sources */,
+				AAC8C8292446F49B0099DFEE /* ProductDetailsViewController.swift in Sources */,
+				AAC8C7EE244619C80099DFEE /* MainViewController.swift in Sources */,
+				AAC8C81F24461D150099DFEE /* CodingProductInfoKey+Util.swift in Sources */,
+				AAC8C824244655930099DFEE /* Product+CoreDataClass.swift in Sources */,
 				AAC8C7F4244619C80099DFEE /* Gusto_Demo.xcdatamodeld in Sources */,
 				AAC8C7EA244619C80099DFEE /* AppDelegate.swift in Sources */,
 				AAC8C7EC244619C80099DFEE /* SceneDelegate.swift in Sources */,
+				AAC8C825244655930099DFEE /* Product+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA18A03E2447731800E25904 /* GustoDemoTestingHelper.swift in Sources */,
 				AAC8C804244619CC0099DFEE /* Gusto_DemoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,11 +674,13 @@
 		};
 		AAC8C814244619CC0099DFEE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BDEED32E790B9D0A815CF692 /* Pods-Gusto Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7BX4GQ2TK8;
 				INFOPLIST_FILE = "Gusto Demo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,11 +694,13 @@
 		};
 		AAC8C815244619CC0099DFEE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 46BEAF67B534757AEE73DF26 /* Pods-Gusto Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7BX4GQ2TK8;
 				INFOPLIST_FILE = "Gusto Demo/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -472,6 +714,7 @@
 		};
 		AAC8C817244619CC0099DFEE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7BC792461313805983597259 /* Pods-Gusto DemoTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -494,6 +737,7 @@
 		};
 		AAC8C818244619CC0099DFEE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4EF48E9E619C565F348F9B00 /* Pods-Gusto DemoTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -516,6 +760,7 @@
 		};
 		AAC8C81A244619CC0099DFEE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3DE5C8E7E016748041779AF /* Pods-Gusto Demo-Gusto DemoUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -536,6 +781,7 @@
 		};
 		AAC8C81B244619CC0099DFEE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37BB48541BDB392D87BCCAF5 /* Pods-Gusto Demo-Gusto DemoUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
