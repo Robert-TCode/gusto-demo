@@ -11,29 +11,47 @@ import CoreData
 
 class MainViewController: UIViewController {
     
+    @IBOutlet weak var titleTextView: UITextView!
     @IBOutlet weak var productSearchBar: UISearchBar!
     @IBOutlet weak var productsTableView: UITableView!
     
     var persistentContainer: NSPersistentContainer!
     var productsData = [NSManagedObject]()
-    var filteredProductsData = [NSManagedObject]()
     
+    var filteredProductsData = [NSManagedObject]()
+    var isFilterActive: Bool = false
     var filterTitleString: String? = nil {
         didSet {
             filterProducts()
         }
     }
     
-    var isFilterActive: Bool = false
+    // MARK: - Controller Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupTitle()
         setupSearchBar()
         setupContainer()
         setupTableView()
        
         fetchData()
+    }
+    
+    // MARK: - Setup Controller and View
+    
+    private func setupTitle() {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = .left
+        
+        let attributedString = NSMutableAttributedString(string: "Gusto Market",
+                                                         attributes: [.paragraphStyle: paragraph])
+        attributedString.addAttribute(.foregroundColor, value: UIColor.gustoOrange, range: NSRange(location: 0, length: 12))
+        attributedString.addAttribute(.font, value: UIFont(name: "HelveticaNeue-Thin", size: 28)!, range: NSRange(location: 0, length: 5))
+        attributedString.addAttribute(.font, value: UIFont(name: "HelveticaNeue-Bold", size: 28)!, range: NSRange(location: 6, length: 6))
+        
+        titleTextView.attributedText = attributedString
     }
     
     private func setupSearchBar() {
@@ -42,6 +60,7 @@ class MainViewController: UIViewController {
                
         productSearchBar.delegate = self
         
+         // UI Tests configuration
         productSearchBar.searchTextField.accessibilityIdentifier = "searchBarProductsId"
     }
     
@@ -49,28 +68,26 @@ class MainViewController: UIViewController {
         productsTableView.delegate = self
         productsTableView.dataSource = self
         
+         // UI Tests configuration
         productsTableView.accessibilityIdentifier = "productsTableViewId"
     }
     
     private func setupContainer() {
-        // Create the persistent container and point to the xcdatamodeld - so matches the xcdatamodeld filename
-        persistentContainer = NSPersistentContainer(name: "Gusto_Demo")
-        
-        // Load the database if it exists, if not create it.
-        persistentContainer.loadPersistentStores { storeDescription, error in
-            self.persistentContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-            
-            if let error = error {
-                print("Unresolved error \(error)")
-            }
+        let delegate = UIApplication.shared.delegate as? AppDelegate
+        if let persistent = delegate?.persistentContainer {
+            persistentContainer = persistent
+        } else {
+            print("Failed to find persistent container")
         }
     }
+    
+    // MARK: - Fetch Data
     
     private func fetchData() {
         // Double the screen width for a better quality like using assets (2x for most of the iPhones)
         let imagesWidth: CGFloat = 2 * UIScreen.main.bounds.width
         
-        NetworkService.fetchProducts(inContainer: persistentContainer, imagesWidth: imagesWidth) { (result) in
+        NetworkService.fetchProducts(imagesWidth: imagesWidth) { (result) in
             switch result {
             case .success(_):
                 DispatchQueue.main.async { [weak self] in
@@ -89,6 +106,8 @@ class MainViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - Database Functions
     
     func loadSavedData() {
         let request: NSFetchRequest<Product> = Product.fetchRequest()
@@ -142,6 +161,8 @@ class MainViewController: UIViewController {
     }
 }
 
+// MARK: - Tableview Configuration
+
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return isFilterActive ? filteredProductsData.count : productsData.count
@@ -160,6 +181,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
         bgColorView.backgroundColor = UIColor.clear
         productCell.selectedBackgroundView = bgColorView
         
+        // UI Tests configuration
         productCell.accessibilityIdentifier = "productCell\(indexPath.row)"
         
         return productCell
@@ -182,6 +204,8 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+// MARK: - SearchBar Delegate and Filter
+
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterTitleString = searchText
@@ -191,6 +215,10 @@ extension MainViewController: UISearchBarDelegate {
                 searchBar.resignFirstResponder()
             }
         }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
     
     func filterProducts() {

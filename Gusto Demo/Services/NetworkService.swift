@@ -10,23 +10,29 @@ import Foundation
 import UIKit
 import CoreData
 
+// MARK: - NetworkError
+
 enum NetworkError: Error {
     case badURL
     case badStatus
     case badJSON
     case requestError
+    case noContextFound
 }
 
 class NetworkService {
     
     static private let productsUrlString = "https://api.gousto.co.uk/products/v2.0/products"
+    static private let imageSizeQuery = "image_sizes[]"
     
-    static func fetchProducts(inContainer container: NSPersistentContainer, imagesWidth: CGFloat, completion: @escaping (Result<[Product], NetworkError>) -> ()) {
+    // MARK: - Fetch Products Request
+    
+    static func fetchProducts(imagesWidth: CGFloat, completion: @escaping (Result<[Product], NetworkError>) -> ()) {
         
         var urlComponents = URLComponents(string: productsUrlString)!
     
         urlComponents.queryItems = [
-            URLQueryItem(name: "image_sizes[]", value: "\(imagesWidth)")
+            URLQueryItem(name: imageSizeQuery, value: "\(imagesWidth)")
         ]
         
         guard let completeURL = urlComponents.url else {
@@ -52,23 +58,37 @@ class NetworkService {
                     
                     if status != "ok" {
                         completion(.failure(.badStatus))
+                        return
                     }
                     
                     guard let productsData = extractProductsData(fromJSONArray: productsJSONData, imagesWidth: imagesWidth) else {
-                        print("\nError at extracting products data from json")
                         completion(.failure(.badJSON))
                         return
                     }
                     
-                    let decoder = JSONDecoder()
-                    decoder.userInfo[CodingUserInfoKey.managedObjectContext!] = container.viewContext
-                    
-                    //TODO Investigate CoreData crash -? Might be because of passing container (context)
-                    let products = try decoder.decode([Product].self, from: productsData)
-                    completion(.success(products))
-                    
+                    // Decoding JSON and saving items in CoreData, context is needed
+                    // CoreData operation must be performed on main thread for avoiding threads concurrency issues
+                    DispatchQueue.main.async {
+                        let delegate = UIApplication.shared.delegate as? AppDelegate
+                        if let context = delegate?.persistentContainer.viewContext {
+                            
+                            do {
+                                let decoder = JSONDecoder()
+                                decoder.userInfo[CodingUserInfoKey.managedObjectContext!] = context
+                                
+                                let products = try decoder.decode([Product].self, from: productsData)
+                                completion(.success(products))
+                                
+                            } catch _ {
+                                completion(.failure(.badJSON))
+                            }
+                            
+                        } else {
+                            completion(.failure(.noContextFound))
+                        }
+                    }
+                   
                 } else {
-                    print("\nUnexpected format\n\(String(decoding: data, as: UTF8.self))")
                     completion(.failure(.badJSON))
                 }
                 
@@ -79,6 +99,10 @@ class NetworkService {
         }.resume()
     }
     
+    // MARK: - Extract Product Data
+    
+    // The JSON response doesn't match exactly the Decodable object Product's fields
+    // Extract only porducts data and adapt fields for perfect match
     static func extractProductsData(fromJSONArray array: [[String: Any]], imagesWidth: CGFloat) -> Data? {
         var convertedProductsJSON = [[String: Any]]()
         
@@ -86,7 +110,7 @@ class NetworkService {
             
             let tags = productJSON["tags"] as? [String] ?? []
             if tags.contains("gift") {
-                //TODO Special case for gifts
+                //TODO Special case for gifts. They probably require different treatment/UI
                 continue
             }
             
@@ -104,6 +128,8 @@ class NetworkService {
                     continue
             }
             
+            // Remove products without photos from list
+            // Just for a neat, better looking design
             guard let allImagesJSON = productJSON["images"] as? [String: Any],
                 let matchSizeImage = allImagesJSON["\(imagesWidth)"] as? [String: Any],
                 let imageSource = matchSizeImage["src"] as? String else {
@@ -116,6 +142,7 @@ class NetworkService {
             
             var convertedProductJSON = productJSON
             
+            // Adapt the new JSON to the Decodable Product object expectations
             convertedProductJSON.updateValue(imageSource, forKey: "image")
             convertedProductJSON.updateValue(zone, forKey: "zone")
             convertedProductJSON.updateValue(volume, forKey: "volume")
@@ -123,8 +150,9 @@ class NetworkService {
             convertedProductsJSON.append(convertedProductJSON)
         }
         
+        // Convert products JSON to Data for decoding
         do {
-            let productsData = try JSONSerialization.data(withJSONObject: convertedProductsJSON, options: [])
+            let productsData = try JSONSerialization.data(withJSONObject: convertedProductsJSON, options: [])  
             return productsData
         } catch _ {
             return nil

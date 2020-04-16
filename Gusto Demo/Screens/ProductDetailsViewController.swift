@@ -13,9 +13,9 @@ import Kingfisher
 class ProductDetailsViewController: UIViewController {
     
     @IBOutlet weak var presentationImageView: UIImageView!
-    
     @IBOutlet weak var detailsContainerView: UIView!
     @IBOutlet weak var bottomContainerView: UIView!
+    @IBOutlet weak var quantityContainerView: UIView!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -25,21 +25,37 @@ class ProductDetailsViewController: UIViewController {
     
     @IBOutlet weak var orderButton: UIButton!
     
-    var product: Product!
+    private var product: Product!
+    
+    // MARK: - Controller Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureViews()
         
+        // UI Tests configuration
         orderButton.accessibilityIdentifier = "orderItemButtonId"
     }
+    
+    // MARK: - Setup Controller and View
     
     public func configure(withProduct product: Product) {
         self.product = product
     }
     
     private func configureViews() {
+        
+        // Configure Ui
+        bottomContainerView.backgroundColor = UIColor.gustoOrange
+        quantityContainerView.backgroundColor = UIColor.gustoOrange
+        ageRestrictionView.backgroundColor = UIColor.gustoOrange
+        
+        detailsContainerView.layer.cornerRadius = 30
+        detailsContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        bottomContainerView.layer.cornerRadius = 33
+        
+        // Load data in view
         if let url = URL(string: product.image ?? "") {
             presentationImageView.contentMode = .scaleAspectFill
             presentationImageView.kf.setImage(with: url)
@@ -52,12 +68,9 @@ class ProductDetailsViewController: UIViewController {
         descriptionLabel.text = product.productDescription
         ageRestrictionView.isHidden = !product.ageRestricted
         alwaysOnMenuLabel.isHidden = product.alwaysOnMenu
-        
-        detailsContainerView.layer.cornerRadius = 30
-        detailsContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
-        bottomContainerView.layer.cornerRadius = 33
     }
+    
+    // MARK: - Controller Actions
     
     @IBAction func actionOrder(_ sender: Any) {
         let alert = UIAlertController(title: "Good choice!", message: "Enjoy your \(product.title ?? "meal")! :)", preferredStyle: .alert)

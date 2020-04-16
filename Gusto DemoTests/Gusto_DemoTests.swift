@@ -22,25 +22,12 @@ class Gusto_DemoTests: XCTestCase {
     private static let imagesWidth: CGFloat = 750.0
     
     var gustoDemoTestingHelper: GustoDemoTestingHelper!
-    var persistentContainer: NSPersistentContainer!
     
     override func setUp() {
         super.setUp()
         
         gustoDemoTestingHelper = GustoDemoTestingHelper()
         gustoDemoTestingHelper.clearStorage(for: Gusto_DemoTests.entityName)
-        
-        // Create the persistent container and point to the xcdatamodeld - so matches the xcdatamodeld filename
-        persistentContainer = NSPersistentContainer(name: "Gusto_Demo")
-        
-        // Load the database if it exists, if not create it.
-        persistentContainer.loadPersistentStores { storeDescription, error in
-            self.persistentContainer.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-            
-            if let error = error {
-                print("Unresolved error \(error)")
-            }
-        }
         
         HTTPStubs.stubRequests(passingTest: { request in
             return request.url!.path.contains("products")
@@ -53,7 +40,7 @@ class Gusto_DemoTests: XCTestCase {
     func testFetchCompletionBlock() {
         let expectation = XCTNSNotificationExpectation(name: NSNotification.Name(rawValue: Notification.Name.NSManagedObjectContextDidSave.rawValue))
         
-        NetworkService.fetchProducts(inContainer: persistentContainer, imagesWidth: Gusto_DemoTests.imagesWidth) { (result) in
+        NetworkService.fetchProducts(imagesWidth: Gusto_DemoTests.imagesWidth) { (result) in
             switch result {
             case .success(let products):
                 
@@ -72,7 +59,7 @@ class Gusto_DemoTests: XCTestCase {
         wait(for: [expectation], timeout: Gusto_DemoTests.defaultWait)
     }
     
-    // Test if getched items match
+    // Test if fetched items match
     // The file products.json is a copy of what the server returned at the moment of writting the code
     // The server may respond dynamically and in that case the test will fail
     func testFetchItemsMatch() {
@@ -115,7 +102,7 @@ class Gusto_DemoTests: XCTestCase {
         let expectation = XCTNSNotificationExpectation(name: NSNotification.Name(rawValue: Notification.Name.NSManagedObjectContextDidSave.rawValue))
         
         // Get the products from server
-        NetworkService.fetchProducts(inContainer: persistentContainer, imagesWidth: Gusto_DemoTests.imagesWidth) { (result) in
+        NetworkService.fetchProducts(imagesWidth: Gusto_DemoTests.imagesWidth) { (result) in
             switch result {
             case .success(let products):
                 
@@ -149,4 +136,41 @@ class Gusto_DemoTests: XCTestCase {
         wait(for: [expectation], timeout: Gusto_DemoTests.defaultWait)
     }
     
+    // !!! Unfinished test
+    // When converting from Data to JSON String and the other way, the fields of a product are changing their order
+    // For fixing this, the fields should have a standart priority
+    
+    // Check if the products are converted correctly for Decodable
+    func testConvertProductsJSON() {
+        let rawProductJSONData = gustoDemoTestingHelper.jsonData(for: "rawProductsJSON.json")
+        let convertedProductJSONData = gustoDemoTestingHelper.jsonData(for: "convertedProductsJSON.json")
+        let expectedConvertedProductsString = String(data: convertedProductJSONData!, encoding: String.Encoding.utf8) ?? ""
+        
+        let expectation = XCTNSNotificationExpectation(name: NSNotification.Name(rawValue: Notification.Name.NSManagedObjectContextDidSave.rawValue))
+        
+        do {
+            if let rawProductJSON = (try JSONSerialization.jsonObject(with: rawProductJSONData!)) as? [[String: Any]] {
+                if let convertedData = NetworkService.extractProductsData(fromJSONArray: rawProductJSON, imagesWidth: 828.0) {
+                    let actualConvertedProductsString = String(data: convertedData, encoding: String.Encoding.utf8) ?? ""
+                    
+                    XCTAssertFalse(expectedConvertedProductsString.isEmpty)
+                    XCTAssertFalse(actualConvertedProductsString.isEmpty)
+                    
+                    XCTAssertEqual(expectedConvertedProductsString, actualConvertedProductsString)
+                    
+                    expectation.fulfill()
+                } else {
+                    // Failed to convert products data
+                    XCTAssertNotNil(nil)
+                }
+            } else {
+                // Failed to parse
+                XCTAssertNotNil(nil)
+            }
+        } catch let error {
+            fatalError(error.localizedDescription)
+        }
+            
+        wait(for: [expectation], timeout: Gusto_DemoTests.defaultWait)
+    }
 }
